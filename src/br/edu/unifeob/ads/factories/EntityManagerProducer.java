@@ -2,6 +2,7 @@ package br.edu.unifeob.ads.factories;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.inject.Disposes;
 import javax.enterprise.inject.Produces;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -19,6 +20,18 @@ public class EntityManagerProducer {
 	@Produces
 	public EntityManager createEntityManager(EntityManagerFactory entityManagerFactory){
 		return entityManagerFactory.createEntityManager();
+	}
+	
+	public void closeEntityMananagerFactory(@Disposes EntityManagerFactory entityManagerFactory){
+		if(entityManagerFactory.isOpen()){
+			entityManagerFactory.close();
+		}
+	}
+	
+	public void closeEntityManager(@Disposes EntityManager entityManager){
+		if(entityManager.isOpen()){
+			entityManager.close();
+		}
 	}
 	
 }
