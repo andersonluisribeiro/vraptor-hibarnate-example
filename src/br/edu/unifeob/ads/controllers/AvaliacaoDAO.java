@@ -1,5 +1,7 @@
 package br.edu.unifeob.ads.controllers;
 
+import java.util.List;
+
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -18,6 +20,10 @@ public class AvaliacaoDAO {
 	
 	public void salvar(Avaliacao avaliacao){
 		entityManager.persist(avaliacao);
+	}
+	
+	public List<Avaliacao> listar(){
+		return entityManager.createQuery("from Avaliacao", Avaliacao.class).getResultList();
 	}
 	
 	
